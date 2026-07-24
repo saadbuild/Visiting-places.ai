@@ -9,6 +9,10 @@ const DB_PATH = path.join(__dirname, "..", "data", "db.json");
 const EMPTY_DB = { users: [], trips: [], favorites: [], subscriptions: [], payments: [] };
 
 function ensureDb() {
+  const dir = path.dirname(DB_PATH);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
   if (!fs.existsSync(DB_PATH)) {
     fs.writeFileSync(DB_PATH, JSON.stringify(EMPTY_DB, null, 2));
   }
