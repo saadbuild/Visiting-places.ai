@@ -1,0 +1,143 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #1a1410;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(241,230,200,0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+  position: relative;
+}
+
+/* Subtle vignette — like light falling off at the edge of an expedition
+   lantern's glow. Sits above the grain, below content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.4) 100%);
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: #C88A3B;
+  color: #1A1410;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #382C1F; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #4A3B29; }
+
+*:focus-visible {
+  outline: 2px solid #C88A3B;
+  outline-offset: 2px;
+}
+
+/* Light theme override — the app defaults to the dark "field journal" look,
+   this swaps the base surfaces while keeping brass/coral accents intact. */
+html.light-theme body {
+  background-color: #F1E6C8;
+  background-image: radial-gradient(circle at 1px 1px, rgba(26,20,16,0.07) 1px, transparent 0);
+}
+html.light-theme body::before {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.08) 100%);
+}
+html.light-theme {
+  color-scheme: light;
+}
+html.light-theme .bg-ink { background-color: #F1E6C8 !important; }
+html.light-theme .bg-ink-700,
+html.light-theme .bg-ink-800 { background-color: #FBF6E8 !important; }
+html.light-theme .text-paper,
+html.light-theme .text-paper\/90,
+html.light-theme .text-paper\/80,
+html.light-theme .text-paper\/70 { color: #221B15 !important; }
+html.light-theme .border-paper\/15,
+html.light-theme .border-paper\/10 { border-color: rgba(26,20,16,0.16) !important; }
+html.light-theme .ticket { background: linear-gradient(180deg, rgba(26,20,16,0.035), rgba(26,20,16,0.01)); }
+html.light-theme .ticket-notch::before,
+html.light-theme .ticket-notch::after { background: #F1E6C8; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Signature motif: the ticket stub, styled like a well-worn
+   expedition-journal page with a brass-stamped edge. ---- */
+.ticket {
+  position: relative;
+  background: linear-gradient(180deg, rgba(241,230,200,0.05), rgba(241,230,200,0.015));
+  border: 1px solid rgba(200,138,59,0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 22px 44px -22px rgba(0,0,0,0.6), inset 0 1px 0 rgba(232,173,94,0.08);
+}
+
+.ticket-notch::before,
+.ticket-notch::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #1a1410;
+  border: 1px solid rgba(200,138,59,0.25);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.ticket-notch::before { left: -10px; }
+.ticket-notch::after { right: -10px; }
+
+.ticket-perforation {
+  border-top: 2px dashed rgba(200,138,59,0.28);
+}
+
+/* Passport-stamp style badge */
+.stamp {
+  border: 2px solid currentColor;
+  border-radius: 9999px;
+  position: relative;
+  transform: rotate(-6deg);
+}
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed currentColor;
+  border-radius: 9999px;
+  opacity: 0.6;
+}
+
+/* Dashed route line for maps/itineraries */
+.route-line {
+  stroke-dasharray: 2 8;
+  stroke-linecap: round;
+}
+
+.font-feature-tnum {
+  font-variant-numeric: tabular-nums;
+}
